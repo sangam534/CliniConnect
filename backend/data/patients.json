@@ -1,0 +1,408 @@
+[
+  {
+    "patientId": "PAT1001",
+    "password": "patient123",
+    "name": "Aarav Sharma",
+    "age": 34,
+    "gender": "Male",
+    "bloodGroup": "O+",
+    "weight": "72 kg",
+    "mobile": "+91 98765 43210",
+    "guardianMobile": "+91 98765 43211",
+    "address": "Flat 402, Shanti Heights, Sector 14, Gurugram, Haryana - 122001",
+    "majorDiseases": "Type 2 Diabetes Mellitus, Mild Hypertension",
+    "lastUpdated": "2026-09-05",
+    "diseases": [
+      {
+        "date": "2026-09-05",
+        "diseaseName": "Diabities",
+        "symptoms": "Fever",
+        "diagnosis": "good",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "phagwra punjab",
+        "hospitalName": "All India Institute of Medical Sciences (AIIMS)",
+        "hospitalAddress": "anil namgar",
+        "medicines": "paracetamol 45",
+        "notes": "avoid rice",
+        "prescriptionDocumentUrl": "/uploads/1788588777304-752739-rit.png",
+        "prescriptionFileName": "rit.png"
+      },
+      {
+        "date": "2026-08-15",
+        "diseaseName": "Type 2 Diabetes Mellitus Follow-up",
+        "symptoms": "Mild polydipsia, occasional post-meal fatigue, fasting blood sugar 142 mg/dL",
+        "diagnosis": "Suboptimally controlled Type-2 Diabetes with metabolic syndrome",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "New Delhi",
+        "hospitalName": "All India Institute of Medical Sciences (AIIMS)",
+        "hospitalAddress": "Ansari Nagar, New Delhi - 110029",
+        "medicines": "Metformin 500mg BD after meals, Glimepiride 1mg OD morning, Telmisartan 40mg OD",
+        "notes": "Advised low glycemic diet, 45 minutes brisk walking daily. Recheck HbA1c in 3 months.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": "Rx_Diabetes_AIIMS_Aug2026.pdf"
+      },
+      {
+        "date": "2026-03-10",
+        "diseaseName": "Acute Seasonal Bronchitis",
+        "symptoms": "Persistent productive cough, chest tightness, low grade fever (99.8°F)",
+        "diagnosis": "Acute viral bronchitis with secondary airway hyperresponsiveness",
+        "doctorName": "Dr. Arvind Mehta",
+        "place": "Gurugram",
+        "hospitalName": "Civil Hospital Gurugram",
+        "hospitalAddress": "Sadar Bazar, Gurugram, Haryana - 122001",
+        "medicines": "Amoxicillin-Clavulanate 625mg BD x 5 days, Levocetirizine + Montelukast OD bedtime, Cough linctus 10ml TDS",
+        "notes": "Avoid dust and cold exposure. Steam inhalation twice daily. Chest clear on auscultation after 5 days.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      },
+      {
+        "date": "2025-11-04",
+        "diseaseName": "Essential Primary Hypertension",
+        "symptoms": "Occasional occipital morning headache, dizziness during physical exertion",
+        "diagnosis": "Stage 1 Essential Hypertension (BP 146/92 mmHg)",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "New Delhi",
+        "hospitalName": "Safdarjung Hospital",
+        "hospitalAddress": "Ring Road, Opposite AIIMS, New Delhi - 110029",
+        "medicines": "Telmisartan 40mg once daily in morning, Sodium restriction",
+        "notes": "Dietary Approaches to Stop Hypertension (DASH) diet prescribed. Daily BP charting maintained.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      }
+    ],
+    "labReports": [
+      {
+        "id": "LAB-1001-01",
+        "date": "2026-08-14",
+        "testName": "HbA1c & Fasting Glucose Panel",
+        "category": "Biochemistry / Pathology",
+        "diagnosticLab": "AIIMS Central Diagnostic Laboratory, New Delhi",
+        "doctorPrescribed": "Dr. Raj Sharma",
+        "resultsSummary": "Fasting Blood Sugar: 142 mg/dL (Ref: 70-99). HbA1c: 7.8% (Ref: <5.7%). Estimated Average Glucose: 177 mg/dL.",
+        "status": "Borderline High",
+        "documentUrl": "",
+        "documentName": "LabReport_HbA1c_Aug2026.pdf",
+        "notes": "Suggests elevated glycemic levels over the preceding 8-12 weeks. Requires medication titration."
+      },
+      {
+        "id": "LAB-1001-02",
+        "date": "2026-08-14",
+        "testName": "Lipid Profile & Serum Creatinine",
+        "category": "Biochemistry",
+        "diagnosticLab": "Dr. Lal PathLabs, Gurugram Sector 14",
+        "doctorPrescribed": "Dr. Raj Sharma",
+        "resultsSummary": "Total Cholesterol: 215 mg/dL. Triglycerides: 185 mg/dL. Serum Creatinine: 0.95 mg/dL (Normal). eGFR: >90 mL/min.",
+        "status": "Normal",
+        "documentUrl": "",
+        "documentName": "Lipid_Creatinine_Panel.pdf",
+        "notes": "Kidney function within normal limits. Mild dyslipidemia noted; continue low-fat diet."
+      }
+    ],
+    "doctorReports": [
+      {
+        "id": "DOC-REP-1001-01",
+        "date": "2026-08-15",
+        "reportType": "Specialist Consultation Summary",
+        "doctorName": "Dr. Raj Sharma",
+        "specialization": "General Physician / Diabetology",
+        "hospitalName": "AIIMS New Delhi",
+        "clinicalFindings": "Patient evaluated for routine diabetes check. Fasting BS elevated at 142 mg/dL. Pulse 76 bpm, regular. BP 136/84 mmHg. Peripheral pulses present in bilateral lower limbs. Monofilament test normal (no diabetic neuropathy).",
+        "recommendations": "Step up Metformin to 500mg twice daily with meals. Continue lifestyle interventions. Repeat renal profile and urine microalbumin in 6 months.",
+        "documentUrl": "",
+        "documentName": "Consultation_Summary_AIIMS.pdf"
+      }
+    ]
+  },
+  {
+    "patientId": "PAT1002",
+    "password": "patient123",
+    "name": "Priya Patel",
+    "age": 28,
+    "gender": "Female",
+    "bloodGroup": "B+",
+    "weight": "58 kg",
+    "mobile": "+91 91234 56780",
+    "guardianMobile": "+91 91234 56789",
+    "address": "House 18, Navrangpura Society, Ahmedabad, Gujarat - 380009",
+    "majorDiseases": "Hypothyroidism, Polycystic Ovary Syndrome (PCOS)",
+    "lastUpdated": "2026-07-22",
+    "diseases": [
+      {
+        "date": "2026-07-22",
+        "diseaseName": "Hypothyroidism Annual Review",
+        "symptoms": "Generalized sluggishness, cold intolerance, dry skin, serum TSH 6.8 uIU/mL",
+        "diagnosis": "Primary Hypothyroidism requiring dosage titration",
+        "doctorName": "Dr. Sunita Rao",
+        "place": "Ahmedabad",
+        "hospitalName": "Civil Hospital Ahmedabad",
+        "hospitalAddress": "Asarwa, Ahmedabad, Gujarat - 380016",
+        "medicines": "Thyronorm (Levothyroxine) 75mcg OD empty stomach 45 mins before breakfast",
+        "notes": "Step-up from 50mcg. Repeat thyroid panel (FT3, FT4, TSH) after 8 weeks.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      },
+      {
+        "date": "2026-01-14",
+        "diseaseName": "Acute Gastroenteritis",
+        "symptoms": "Frequent watery diarrhea, nausea, crampy lower abdominal pain, mild dehydration",
+        "diagnosis": "Acute infective gastroenteritis (bacterial/viral)",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "Ahmedabad",
+        "hospitalName": "Sardar Vallabhbhai Patel Institute (SVP)",
+        "hospitalAddress": "Ellisbridge, Ahmedabad, Gujarat - 380006",
+        "medicines": "Oral Rehydration Salts (ORS) ad libitum, Ofloxacin-Ornidazole 1 tab BD x 3 days, Racecadotril 100mg TDS, Probiotic sachet OD",
+        "notes": "Fluid intake enforced. Bland khichdi diet. Symptoms resolved within 48 hours.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      }
+    ],
+    "labReports": [
+      {
+        "id": "LAB-1002-01",
+        "date": "2026-07-20",
+        "testName": "Serum Thyroid Profile (FT3, FT4, TSH)",
+        "category": "Endocrine Pathology",
+        "diagnosticLab": "Apollo Diagnostics, Navrangpura, Ahmedabad",
+        "doctorPrescribed": "Dr. Sunita Rao",
+        "resultsSummary": "Free T3: 2.8 pg/mL (Ref: 2.0-4.4). Free T4: 1.05 ng/dL (Ref: 0.8-1.8). TSH: 6.80 uIU/mL (Ref: 0.4-4.5, Elevated).",
+        "status": "Borderline High",
+        "documentUrl": "",
+        "documentName": "Thyroid_Panel_July2026.pdf",
+        "notes": "Subclinical hypothyroidism exacerbation. Recommended dose adjustment."
+      }
+    ],
+    "doctorReports": [
+      {
+        "id": "DOC-REP-1002-01",
+        "date": "2026-07-22",
+        "reportType": "Endocrine Outpatient Assessment",
+        "doctorName": "Dr. Sunita Rao",
+        "specialization": "Endocrinologist",
+        "hospitalName": "Civil Hospital Ahmedabad",
+        "clinicalFindings": "Thyroid gland non-tender, no palpable nodules. BMI 22.4 kg/m2. No pretibial myxedema. Reflexes normal.",
+        "recommendations": "Adjust Levothyroxine dose from 50mcg to 75mcg daily on empty stomach. Recheck TSH after 8 weeks.",
+        "documentUrl": "",
+        "documentName": "Endocrine_OPD_Note.pdf"
+      }
+    ]
+  },
+  {
+    "patientId": "PAT1003",
+    "password": "patient123",
+    "name": "Rajesh Kumar",
+    "age": 52,
+    "gender": "Male",
+    "bloodGroup": "A+",
+    "weight": "79 kg",
+    "mobile": "+91 97112 34567",
+    "guardianMobile": "+91 97112 34568",
+    "address": "Qtr 42, Rail Vihar, Gomti Nagar, Lucknow, Uttar Pradesh - 226010",
+    "majorDiseases": "Chronic Stable Angina, Hyperlipidemia, Lumbar Spondylosis",
+    "lastUpdated": "2026-08-02",
+    "diseases": [
+      {
+        "date": "2026-08-02",
+        "diseaseName": "Coronary Artery Disease Routine Evaluation",
+        "symptoms": "Exertional retrosternal heaviness after walking 500m, relieved with 3 min rest",
+        "diagnosis": "Chronic Stable Angina (CCS Class II), Dyslipidemia",
+        "doctorName": "Dr. K. N. Srivastava",
+        "place": "Lucknow",
+        "hospitalName": "Sanjay Gandhi Postgraduate Institute of Medical Sciences (SGPGIMS)",
+        "hospitalAddress": "Raebareli Road, Lucknow, UP - 226014",
+        "medicines": "Aspirin 75mg OD after dinner, Atorvastatin 40mg OD bedtime, Metoprolol Succinate 25mg OD morning, Sorbitrate 5mg sublingual PRN",
+        "notes": "Stress ECG showed reversible ischemic changes. Advised cardiac rehab and strict lipid monitoring.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      },
+      {
+        "date": "2025-10-18",
+        "diseaseName": "Lumbar Disc Spondylosis (L4-L5)",
+        "symptoms": "Radiating lower back pain to left gluteal region, numbness after prolonged standing",
+        "diagnosis": "Lumbar radiculopathy secondary to L4-L5 annular bulge",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "Lucknow",
+        "hospitalName": "King George's Medical University (KGMU)",
+        "hospitalAddress": "Shah Mina Rd, Chowk, Lucknow, UP - 226003",
+        "medicines": "Pregabalin 75mg OD bedtime, Paracetamol 650mg SOS, Calcium + Vit D3 60k weekly",
+        "notes": "Referred to physical therapy for core stabilization and pelvic tilting exercises. Avoid lifting heavy weights.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      }
+    ],
+    "labReports": [
+      {
+        "id": "LAB-1003-01",
+        "date": "2026-08-01",
+        "testName": "12-Lead Electrocardiogram (ECG) & Echo",
+        "category": "Cardiology Diagnostics",
+        "diagnosticLab": "SGPGIMS Department of Cardiology",
+        "doctorPrescribed": "Dr. K. N. Srivastava",
+        "resultsSummary": "Sinus rhythm, HR 68 bpm. Inverted T-waves in V4-V6. 2D Echo: LVEF 55%, mild concentric LVH, no regional wall motion abnormality at rest.",
+        "status": "Borderline High",
+        "documentUrl": "",
+        "documentName": "ECG_Echo_Report_Aug2026.pdf",
+        "notes": "Consistent with stable coronary artery disease. Continue beta-blocker and statin therapy."
+      }
+    ],
+    "doctorReports": [
+      {
+        "id": "DOC-REP-1003-01",
+        "date": "2026-08-02",
+        "reportType": "Cardiology Outpatient Summary",
+        "doctorName": "Dr. K. N. Srivastava",
+        "specialization": "Cardiologist",
+        "hospitalName": "SGPGIMS Lucknow",
+        "clinicalFindings": "Chest clear to auscultation, S1 S2 normal, no murmurs. BP 124/80 mmHg. CCS Class II angina symptoms on moderate exertion.",
+        "recommendations": "Strict lipid control target LDL < 55 mg/dL. Carry Sorbitrate 5mg tablet at all times. Emergency red flags briefed to family.",
+        "documentUrl": "",
+        "documentName": "Cardiology_Clinical_Note.pdf"
+      }
+    ]
+  },
+  {
+    "patientId": "PAT1004",
+    "password": "patient123",
+    "name": "Sunita Devi",
+    "age": 46,
+    "gender": "Female",
+    "bloodGroup": "AB+",
+    "weight": "64 kg",
+    "mobile": "+91 94310 98765",
+    "guardianMobile": "+91 94310 98766",
+    "address": "House 105, Kankarbagh Main Road, Patna, Bihar - 800020",
+    "majorDiseases": "Rheumatoid Arthritis, Iron Deficiency Anemia",
+    "lastUpdated": "2026-06-19",
+    "diseases": [
+      {
+        "date": "2026-06-19",
+        "diseaseName": "Rheumatoid Arthritis Flare-up",
+        "symptoms": "Morning stiffness lasting >1 hour in bilateral MCP and PIP finger joints, wrist pain and swelling",
+        "diagnosis": "Active Seropositive Rheumatoid Arthritis (DAS28 score: 4.2)",
+        "doctorName": "Dr. Alok Verma",
+        "place": "Patna",
+        "hospitalName": "AIIMS Patna",
+        "hospitalAddress": "Phulwari Sharif, Patna, Bihar - 801507",
+        "medicines": "Methotrexate 15mg once weekly with Folic acid 5mg next day, Hydroxychloroquine 200mg OD, Deflazacort 6mg OD taper",
+        "notes": "LFT and CBC monitored every 2 months. Joint mobilization therapy prescribed.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      },
+      {
+        "date": "2025-12-05",
+        "diseaseName": "Moderate Iron Deficiency Anemia",
+        "symptoms": "Easy fatigability, brittle nails, pallor, mild exertional dyspnea, Hb 8.9 g/dL",
+        "diagnosis": "Microcytic hypochromic nutritional anemia",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "Patna",
+        "hospitalName": "Patna Medical College and Hospital (PMCH)",
+        "hospitalAddress": "Ashok Rajpath, Patna, Bihar - 800004",
+        "medicines": "Ferrous Ascorbate 100mg + Folic Acid 1.5mg OD after meals, Vitamin C 500mg OD",
+        "notes": "Diet rich in jaggery, green leafy vegetables, sprouts recommended. Avoid tea with meals. Hemoglobin improved to 11.2 g/dL.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      }
+    ],
+    "labReports": [
+      {
+        "id": "LAB-1004-01",
+        "date": "2026-06-18",
+        "testName": "Rheumatoid Factor (RF), Anti-CCP & ESR",
+        "category": "Serology & Immunology",
+        "diagnosticLab": "AIIMS Patna Clinical Immunology Lab",
+        "doctorPrescribed": "Dr. Alok Verma",
+        "resultsSummary": "Anti-CCP: 84.2 U/mL (Positive, Ref: <20). Rheumatoid Factor: 68 IU/mL (Positive). ESR: 46 mm/hr (Elevated).",
+        "status": "Critical",
+        "documentUrl": "",
+        "documentName": "Immunology_RF_CCP_Report.pdf",
+        "notes": "High titer autoantibodies confirm active seropositive rheumatoid arthritis flare."
+      }
+    ],
+    "doctorReports": [
+      {
+        "id": "DOC-REP-1004-01",
+        "date": "2026-06-19",
+        "reportType": "Rheumatology Clinical Assessment",
+        "doctorName": "Dr. Alok Verma",
+        "specialization": "Clinical Rheumatologist",
+        "hospitalName": "AIIMS Patna",
+        "clinicalFindings": "Synovitis present in wrists, MCP 2-3 bilaterally. Grip strength diminished. DAS28 score calculated at 4.2.",
+        "recommendations": "Continue DMARD regimen with weekly Methotrexate monitoring. Physical therapy referral provided.",
+        "documentUrl": "",
+        "documentName": "Rheumatology_Clinical_Summary.pdf"
+      }
+    ]
+  },
+  {
+    "patientId": "PAT1005",
+    "password": "patient123",
+    "name": "Vikramaditya Singh",
+    "age": 61,
+    "gender": "Male",
+    "bloodGroup": "O-",
+    "weight": "82 kg",
+    "mobile": "+91 98290 12345",
+    "guardianMobile": "+91 98290 12346",
+    "address": "Bungalow 7, C-Scheme, Jaipur, Rajasthan - 302001",
+    "majorDiseases": "Chronic Obstructive Pulmonary Disease (COPD), Benign Prostatic Hyperplasia (BPH)",
+    "lastUpdated": "2026-08-28",
+    "diseases": [
+      {
+        "date": "2026-08-28",
+        "diseaseName": "COPD Exacerbation Post-Dust Storm",
+        "symptoms": "Increased breathlessness (mMRC Grade 3), nocturnal wheezing, yellowish sputum",
+        "diagnosis": "Infective acute exacerbation of COPD (GOLD Stage 2)",
+        "doctorName": "Dr. Raj Sharma",
+        "place": "Jaipur",
+        "hospitalName": "Sawai Man Singh (SMS) Medical College & Hospital",
+        "hospitalAddress": "JLN Marg, Jaipur, Rajasthan - 302004",
+        "medicines": "Formoterol + Budesonide (400mcg) DPI 1 puff BD, Tiotropium 18mcg Rotacap OD, Azithromycin 500mg OD x 3 days",
+        "notes": "Inhalation technique verified with spacer. Spirometry scheduled post recovery. Advised N95 mask outdoors.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      },
+      {
+        "date": "2026-02-17",
+        "diseaseName": "Benign Prostatic Hyperplasia (BPH)",
+        "symptoms": "Hesitancy, weak urinary stream, nocturia 4-5 times per night, IPSS score 19",
+        "diagnosis": "Symptomatic BPH with bladder outflow resistance (Prostate vol 42cc)",
+        "doctorName": "Dr. Mahendra Rathore",
+        "place": "Jaipur",
+        "hospitalName": "Narayana Multispeciality Hospital",
+        "hospitalAddress": "Sector 28, Kumbha Marg, Pratap Nagar, Jaipur - 302033",
+        "medicines": "Tamsulosin 0.4mg + Dutasteride 0.5mg combination tab OD at bedtime",
+        "notes": "PSA level normal (1.4 ng/mL). Decreased evening liquid intake advised. Review in 6 months with USG KUB.",
+        "prescriptionDocumentUrl": "",
+        "prescriptionFileName": ""
+      }
+    ],
+    "labReports": [
+      {
+        "id": "LAB-1005-01",
+        "date": "2026-08-27",
+        "testName": "Chest X-Ray (PA View) & Spirometry",
+        "category": "Pulmonary Diagnostics & Radiology",
+        "diagnosticLab": "SMS Hospital Department of Radiodiagnosis, Jaipur",
+        "doctorPrescribed": "Dr. Raj Sharma",
+        "resultsSummary": "X-Ray: Hyperinflated lung fields, flattened diaphragms, no focal consolidation. Spirometry: FEV1/FVC 62%, FEV1 68% predicted (Moderate airflow limitation).",
+        "status": "Borderline High",
+        "documentUrl": "",
+        "documentName": "CXR_Spirometry_Report.pdf",
+        "notes": "Features compatible with GOLD Stage 2 COPD. No active pneumonic infiltration."
+      }
+    ],
+    "doctorReports": [
+      {
+        "id": "DOC-REP-1005-01",
+        "date": "2026-08-28",
+        "reportType": "Pulmonology Consultation & Management Note",
+        "doctorName": "Dr. Raj Sharma",
+        "specialization": "General & Chest Physician",
+        "hospitalName": "SMS Medical College, Jaipur",
+        "clinicalFindings": "SpO2 95% on room air. Rhonchi audible on auscultation in bilateral bases. Respiratory rate 20/min. No cyanosis.",
+        "recommendations": "Step up dual bronchodilator therapy with inhaled corticosteroid. Annual influenza vaccination strongly advised.",
+        "documentUrl": "",
+        "documentName": "Pulmonology_Consult_Summary.pdf"
+      }
+    ]
+  }
+]

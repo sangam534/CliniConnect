@@ -1,0 +1,27 @@
+{
+  "name": "help-india-backend",
+  "version": "1.0.0",
+  "description": "Backend API Service for HELP INDIA - National Medical Disease History Portal",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.3.0"
+  },
+  "keywords": [
+    "healthcare",
+    "medical-portal",
+    "disease-history",
+    "gemini-api",
+    "openai",
+    "express"
+  ],
+  "author": "HELP INDIA Team",
+  "license": "ISC"
+}

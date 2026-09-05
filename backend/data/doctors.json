@@ -1,0 +1,20 @@
+[
+  {
+    "id": "DOC1001",
+    "name": "Dr. Raj Sharma",
+    "password": "doctor123",
+    "specialization": "General Physician",
+    "hospital": "All India Institute of Medical Sciences (AIIMS)",
+    "registrationNumber": "MCI-2015-84920",
+    "registeredOn": "2026-01-10"
+  },
+  {
+    "id": "DOC2001",
+    "name": "Dr. Devesh",
+    "password": "123456",
+    "specialization": "Cardiologist",
+    "hospital": "AIIMS DELHI",
+    "registrationNumber": "MCI-2026-98768",
+    "registeredOn": "2026-09-05"
+  }
+]

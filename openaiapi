@@ -1,0 +1,22 @@
+from openai import OpenAI
+
+client = OpenAI(
+  base_url = "https://integrate.api.nvidia.com/v1",
+  api_key = "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"
+)
+
+completion = client.chat.completions.create(
+  model="openai/gpt-oss-20b",
+  messages=[{"content":"why earth looks blue from space","role":"user"}],
+  temperature=1,
+  top_p=1,
+  max_tokens=4096,
+  stream=True
+)
+
+for chunk in completion:
+    if not getattr(chunk, "choices", None):
+        continue
+
+    if chunk.choices[0].delta.content is not None:
+        print(chunk.choices[0].delta.content, end="")

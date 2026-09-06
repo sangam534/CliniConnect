@@ -159,10 +159,12 @@ app.get('/api/health', async (req, res) => {
         patientsCount: (patients || []).length,
         doctorsCount: (doctors || []).length,
         aiConfig: {
-            configuredProvider: process.env.AI_PROVIDER || 'gemini',
+            configuredProvider: process.env.AI_PROVIDER || (process.env.OPENAI_API_KEY ? 'openai' : 'gemini'),
             geminiConfigured: Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim()),
             openaiConfigured: Boolean(process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.trim()),
-            customAiConfigured: Boolean(process.env.CUSTOM_AI_ENDPOINT && process.env.CUSTOM_AI_ENDPOINT.trim())
+            customAiConfigured: Boolean(process.env.CUSTOM_AI_ENDPOINT && process.env.CUSTOM_AI_ENDPOINT.trim()),
+            openaiBaseUrl: process.env.OPENAI_BASE_URL || "https://api.openai.com/v1",
+            openaiModel: process.env.OPENAI_MODEL || "openai/gpt-oss-20b"
         },
         disclaimer: "DEMO PROJECT — MOCK DATA — NOT A REAL GOVERNMENT SERVICE"
     });
@@ -750,9 +752,16 @@ app.post('/api/ai/analyze-symptoms', async (req, res) => {
         }
     }
 
-    const activeProvider = (providerOverride || process.env.AI_PROVIDER || 'gemini').toLowerCase();
+    let activeProvider = (providerOverride || process.env.AI_PROVIDER || '').toLowerCase();
     const geminiKey = apiKeyOverride || process.env.GEMINI_API_KEY;
     const openaiKey = apiKeyOverride || process.env.OPENAI_API_KEY;
+
+    if (!activeProvider) {
+        if (openaiKey && openaiKey.trim()) activeProvider = 'openai';
+        else if (geminiKey && geminiKey.trim()) activeProvider = 'gemini';
+        else if (process.env.CUSTOM_AI_ENDPOINT) activeProvider = 'custom';
+        else activeProvider = 'rule';
+    }
 
     if (activeProvider === 'gemini' && geminiKey && geminiKey.trim()) {
         try {
@@ -768,17 +777,23 @@ app.post('/api/ai/analyze-symptoms', async (req, res) => {
         }
     }
 
-    if (activeProvider === 'openai' && openaiKey && openaiKey.trim()) {
+    if ((activeProvider === 'openai' || activeProvider === 'nvidia') && openaiKey && openaiKey.trim()) {
         try {
-            console.log("Dispatching triage request to OpenAI API...");
+            const baseUrl = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
+            const modelName = process.env.OPENAI_MODEL || (baseUrl.includes("nvidia.com") ? "openai/gpt-oss-20b" : "gpt-4o-mini");
+            const engineLabel = baseUrl.includes("nvidia.com")
+                ? `NVIDIA NIM (${modelName})`
+                : `OpenAI (${modelName})`;
+
+            console.log(`Dispatching triage request to ${engineLabel} at ${baseUrl}...`);
             const openaiResult = await callOpenAiApi(openaiKey.trim(), symptoms, historyContext);
             return res.json({
                 success: true,
-                engine: "OpenAI GPT-4o-mini (Online AI)",
+                engine: engineLabel,
                 ...openaiResult
             });
         } catch (err) {
-            console.error("OpenAI API call failed, falling back to rule engine:", err.message);
+            console.error("OpenAI/NVIDIA API call failed, falling back to rule engine:", err.message);
         }
     }
 
@@ -843,8 +858,11 @@ CRITICAL RULES:
 }
 
 async function callOpenAiApi(apiKey, symptoms, historyContext) {
-    const url = "https://api.openai.com/v1/chat/completions";
-    const systemPrompt = `You are an AI Clinical Triage Assistant for the HELP INDIA healthcare portal. 
+    const baseUrl = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
+    const url = `${baseUrl}/chat/completions`;
+    const model = process.env.OPENAI_MODEL || (baseUrl.includes("nvidia.com") ? "openai/gpt-oss-20b" : "gpt-4o-mini");
+
+    const systemPrompt = `You are an AI Clinical Triage Assistant for the "HELP INDIA" healthcare portal.
 Return ONLY valid JSON matching this schema:
 {
   "urgency": "LOW" | "MODERATE" | "HIGH",
@@ -855,24 +873,41 @@ Return ONLY valid JSON matching this schema:
 }
 Rules:
 - Cardiac/stroke/severe respiratory red flags = urgency "HIGH", isEmergency true.
-- Do NOT prescribe prescription drugs. Supportive advice only.`;
+- Do NOT prescribe prescription-only medications. Provide supportive and lifestyle guidance only.
+- Output RAW JSON ONLY without markdown wrapping.`;
+
+    const requestBody = {
+        model,
+        messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: `Symptoms: "${symptoms}". Previous medical history: "${historyContext || 'None'}". Provide triage JSON.` }
+        ],
+        temperature: 0.2,
+        max_tokens: 1024
+    };
+
+    if (baseUrl.includes("api.openai.com")) {
+        requestBody.response_format = { type: "json_object" };
+    }
 
     const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` },
-        body: JSON.stringify({
-            model: "gpt-4o-mini",
-            response_format: { type: "json_object" },
-            messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: `Symptoms: "${symptoms}". History: "${historyContext}".` }
-            ],
-            temperature: 0.2
-        })
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`
+        },
+        body: JSON.stringify(requestBody)
     });
 
-    if (!response.ok) throw new Error(`OpenAI HTTP Error ${response.status}`);
+    if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`OpenAI/NVIDIA API Error ${response.status}: ${errText}`);
+    }
+
     const data = await response.json();
+    if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+        throw new Error("Invalid response format from AI API");
+    }
     return extractJson(data.choices[0].message.content);
 }
 
@@ -900,12 +935,18 @@ async function callCustomOnlineAi(symptoms, historyContext) {
 }
 
 function extractJson(text) {
+    if (typeof text !== 'string') return text;
     try {
         return JSON.parse(text);
     } catch (e) {
-        const match = text.match(/\{[\s\S]*\}/);
-        if (match) return JSON.parse(match[0]);
-        throw e;
+        const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+        try {
+            return JSON.parse(cleaned);
+        } catch (e2) {
+            const match = cleaned.match(/\{[\s\S]*\}/);
+            if (match) return JSON.parse(match[0]);
+            throw e;
+        }
     }
 }
 

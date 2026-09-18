@@ -1,0 +1,579 @@
+/* ==========================================================================
+   HELP INDIA - National Medical Disease History Portal
+   Clean, Minimalistic Healthcare Portal Stylesheet
+   ========================================================================== */
+
+:root {
+    --primary-navy: #002B49;
+    --dark-navy: #001A2E;
+    --accent-blue: #0A58CA;
+    --india-saffron: #FF9933;
+    --saffron-dark: #D97706;
+    --india-green: #128807;
+    --green-dark: #0F6B05;
+    --danger-red: #DC2626;
+    --bg-page: #F4F6F9;
+    --bg-card: #FFFFFF;
+    --border-color: #D1D9E6;
+    --border-subtle: #E2E8F0;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --text-heading: #0F172A;
+    --shadow-sm: 0 1px 3px rgba(0, 43, 73, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 43, 73, 0.10);
+    --shadow-lg: 0 10px 25px rgba(0, 43, 73, 0.12);
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Banner */
+.tricolor-stripe {
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--india-saffron) 0%, var(--india-saffron) 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, var(--india-green) 66.66%, var(--india-green) 100%);
+    flex-shrink: 0;
+}
+
+.official-demo-banner {
+    background-color: #FFF3CD;
+    color: #856404;
+    border-bottom: 1px solid #FFEEBA;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.demo-badge-pill {
+    background-color: #856404;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.site-header {
+    background: linear-gradient(180deg, var(--dark-navy) 0%, var(--primary-navy) 100%);
+    color: #FFFFFF;
+    border-bottom: 3px solid var(--india-saffron);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.emblem-badge {
+    width: 44px;
+    height: 44px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: var(--shadow-sm);
+}
+
+.brand-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+}
+
+.brand-subtitle {
+    font-size: 0.78rem;
+    color: #E2E8F0;
+    letter-spacing: 0.3px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px;
+}
+
+/* Common Card & Form Styles */
+.gov-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.gov-card-header {
+    padding: 14px 20px;
+    background: #F8FAFC;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gov-card-header.saffron-accent { border-left: 4px solid var(--india-saffron); }
+.gov-card-header.green-accent { border-left: 4px solid var(--india-green); }
+.gov-card-header.navy-accent { border-left: 4px solid var(--accent-blue); }
+
+.gov-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary-navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gov-card-body { padding: 20px; }
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+}
+
+.btn-primary { background: var(--accent-blue); color: #FFF; }
+.btn-primary:hover { background: #084298; }
+
+.btn-navy { background: var(--primary-navy); color: #FFF; }
+.btn-navy:hover { background: var(--dark-navy); }
+
+.btn-green { background: var(--india-green); color: #FFF; }
+.btn-green:hover { background: var(--green-dark); }
+
+.btn-saffron { background: var(--india-saffron); color: #FFF; }
+.btn-saffron:hover { background: var(--saffron-dark); }
+
+.btn-outline-navy { background: transparent; border-color: var(--primary-navy); color: var(--primary-navy); }
+.btn-outline-navy:hover { background: #F1F5F9; }
+
+.btn-danger-outline { background: transparent; border-color: var(--danger-red); color: var(--danger-red); }
+.btn-danger-outline:hover { background: #FEF2F2; }
+
+.btn-sm { padding: 4px 10px; font-size: 0.78rem; }
+.btn-lg { padding: 12px 24px; font-size: 1rem; }
+
+/* Form Controls */
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: #FFF;
+    outline: none;
+    font-family: inherit;
+}
+.form-control:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(10, 88, 202, 0.15); }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* Role Selection Landing Page */
+.landing-hero {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+.landing-hero h1 { font-size: 2rem; color: var(--primary-navy); font-weight: 800; margin-bottom: 8px; }
+.landing-hero p { font-size: 1rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 30px; }
+
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.role-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.role-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-blue);
+}
+
+.role-card-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    background: #F1F5F9;
+}
+
+.role-card.doctor:hover .role-card-icon { background: #EBF5FF; }
+.role-card.patient:hover .role-card-icon { background: #ECFDF5; }
+
+.role-card h2 { font-size: 1.3rem; margin-bottom: 8px; color: var(--primary-navy); }
+.role-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px; }
+
+/* Login Forms (Clean, NO CAPTCHA) */
+.auth-wrapper {
+    max-width: 440px;
+    margin: 30px auto;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.auth-header h2 { font-size: 1.4rem; color: var(--primary-navy); font-weight: 800; }
+.auth-header p { font-size: 0.85rem; color: var(--text-muted); }
+
+.demo-credentials-box {
+    background: #EFF6FF;
+    border: 1px dashed #93C5FD;
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    font-size: 0.8rem;
+    color: #1E40AF;
+}
+
+.form-alert {
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+    display: none;
+}
+.form-alert.error { background: #FEF2F2; border: 1px solid #FCA5A5; color: #B91C1C; display: block; }
+.form-alert.success { background: #ECFDF5; border: 1px solid #6EE7B7; color: #047857; display: block; }
+
+/* Profile View */
+.profile-banner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    align-items: center;
+}
+.profile-avatar-box {
+    text-align: center;
+    padding: 16px;
+    background: #F8FAFC;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+}
+.profile-avatar { font-size: 48px; margin-bottom: 6px; }
+.profile-id-pill {
+    display: inline-block;
+    background: var(--primary-navy);
+    color: #FFF;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.profile-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+.profile-field-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+.profile-field-value { font-size: 0.92rem; font-weight: 600; color: var(--text-main); }
+.profile-field-full { grid-column: 1 / -1; }
+
+/* Tabs */
+.portal-nav-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid var(--border-subtle);
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+.tab-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+.tab-btn.active {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+    background: #F8FAFC;
+}
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* Tables */
+.table-responsive-wrapper { overflow-x: auto; }
+.gov-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+.gov-table th {
+    background: #F1F5F9;
+    color: var(--primary-navy);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 700;
+    white-space: nowrap;
+}
+.gov-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+}
+.gov-table tr:hover td { background-color: #F8FAFC; }
+.table-empty-row { text-align: center; color: var(--text-muted); padding: 30px !important; }
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+.status-badge.normal { background: #ECFDF5; color: #047857; }
+.status-badge.borderline { background: #FFFBEB; color: #B45309; }
+.status-badge.critical { background: #FEF2F2; color: #B91C1C; }
+
+.doc-attachment-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1D4ED8;
+    border-radius: 4px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Modals */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 26, 46, 0.6);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-backdrop.open { display: flex; }
+
+.modal-card {
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    max-width: 640px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+.modal-header {
+    background: var(--primary-navy);
+    color: #FFFFFF;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.modal-header h3 { font-size: 1.1rem; font-weight: 700; }
+.modal-close-btn {
+    background: none; border: none; color: #FFF; font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.modal-body { padding: 20px; }
+.modal-footer {
+    padding: 12px 20px;
+    background: #F8FAFC;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* AI Disease / Condition Section (Minimalistic & Cohesive) */
+.ai-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F9FBFC 100%);
+    border: 1px solid #BFDBFE;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 20px;
+    margin-top: 24px;
+}
+
+.ai-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.ai-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--primary-navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-badge {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border: 1px solid #BFDBFE;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.ai-actions-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.ai-result-box {
+    display: none;
+    margin-top: 20px;
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: var(--radius-md);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+}
+.ai-result-box.visible { display: block; }
+
+.ai-result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.ai-result-content {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    white-space: pre-wrap;
+}
+
+.ai-loading-state {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #F8FAFC;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    margin-top: 14px;
+    font-size: 0.88rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(10, 88, 202, 0.2);
+    border-top-color: var(--accent-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Footer */
+.site-footer {
+    margin-top: auto;
+    background: var(--dark-navy);
+    color: #94A3B8;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    border-top: 3px solid var(--india-green);
+}
+.site-footer p { margin-bottom: 4px; }
+
+@media (max-width: 768px) {
+    .profile-banner { grid-template-columns: 1fr; }
+    .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+}

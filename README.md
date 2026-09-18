@@ -1,107 +1,98 @@
 # HELP INDIA – National Medical Disease History Portal
 
-A full-stack, responsive healthcare portal prototype designed for digital medical history verification, diagnostic document archival, and AI-assisted clinical triage.
+> **National Medical Disease History & Clinical Encounters Portal Prototype**  
+> Built with **Python FastAPI**, clean modular architecture, and **NVIDIA NIM AI** integration.
 
 ---
 
-## 🌟 New Features
+## Key Features
 
-1. **Self-Registration (Doctors & Citizens)**:
-   - **Doctor Registration**: Full name, medical council registration number, specialization, hospital affiliation, and password. Generates unique Doctor ID (e.g. `DOC1002`, `DOC1003`...).
-   - **Citizen Registration**: Full demographics, blood group, emergency contact, chronic diseases, and password. Auto-generates Patient ID (e.g. `PAT1006`...).
-   - Immediate login with newly created credentials.
+1. **Modular, Minimalistic Architecture**:
+   - High cohesion and low coupling with separated concerns (API, database, auth, records, uploads, AI).
+   - Lightweight JSON-based persistence (`backend/data/`).
+   - Single-service deployment: FastAPI serves both the API endpoints and the frontend UI.
 
-2. **Prescription & Document File Upload Engine**:
-   - Doctors can attach physical prescription scans/photos in **PDF, PNG, or JPEG** format (up to 10MB).
-   - Dedicated file upload endpoint (`POST /api/upload`) using `multer`.
-   - Files are stored in `help-india/backend/uploads/` and served statically.
-   - Built-in interactive document viewer modal for images and PDFs.
+2. **Accredited Doctor Portal**:
+   - Search citizen records by Patient ID (`PAT1001`, `PAT1002`, etc.).
+   - Record clinical encounters, diagnoses, place, and prescriptions.
+   - Attach physical medical documents (PDF, PNG, JPEG) up to 10MB.
+   - Record diagnostic laboratory reports (Pathology, Radiology, Biochemistry).
+   - Log formal consultation summaries and discharge notes.
 
-3. **Multi-Category Clinical Records**:
-   - **📋 Clinical Encounters & Prescriptions**: Date, disease, symptoms, diagnosis, doctor, medicines, notes, and attached prescription scan.
-   - **🧪 Diagnostic Lab Reports**: Test name, pathology/radiology category, diagnostic lab, doctor prescribed, results summary, severity status badges (*Normal*, *Borderline High*, *Critical*), and attached report document.
-   - **🩺 Doctor Consultation Summaries**: Formal outpatient notes, discharge summaries, clinical findings, recommendations, and attached specialist summary documents.
+3. **Citizen / Patient Portal**:
+   - Access verified lifetime clinical encounters and prescriptions.
+   - View diagnostic lab findings and doctor consultation summaries.
+   - Preview original prescription PDFs and lab report images.
 
-4. **Online AI Health Symptom Assistant**:
-   - Connects to Google Gemini 1.5 Flash or OpenAI GPT-4o-mini via backend `.env`.
-   - Includes automatic clinical history context attachment.
-   - Built-in fallback to server-side rule engine if offline.
+4. **AI Disease & Condition Assistant (NVIDIA NIM)**:
+   - Powered by NVIDIA NIM (`openai/gpt-oss-20b`) via the OpenAI-compatible SDK.
+   - **Summarize Condition**: Formulates a clear, empathetic clinical summary of the patient's reported symptoms, affected systems, and patterns.
+   - **Get Medical Advice**: Provides evidence-based supportive guidance, questions to ask an attending physician, and red flag warnings for emergency conditions.
+   - Option to include verified medical history context from the patient's portal record.
+
+5. **Frictionless Experience**:
+   - **Zero CAPTCHA**: CAPTCHA code generation and validation have been completely removed from both Doctor and Patient logins for a streamlined prototype experience.
 
 ---
 
-## 📁 Project Structure
+## File Structure
 
 ```
-help-india/
-├── backend/                  # Node.js + Express REST API Server
+med_india/
+├── backend/
 │   ├── data/
-│   │   ├── doctors.json      # Registered doctor credentials & profiles
-│   │   └── patients.json     # Multi-category records (encounters, lab, doctor reports)
-│   ├── uploads/              # Prescriptions, lab reports, & consultation scans (PDF/PNG/JPEG)
-│   ├── .env.example          # Environment variables template
-│   ├── .env                  # Local environment configuration
-│   ├── package.json          # Dependencies (express, cors, dotenv, multer)
-│   └── server.js             # Main REST API server & file upload handler
-│
-└── frontend/                 # Client Single-Page Application
-    └── index.html            # Responsive UI with tabs, modals, viewer & AI assistant
+│   │   ├── doctors.json         # Demo doctor accounts
+│   │   └── patients.json        # Demo citizen profiles & medical history
+│   ├── uploads/                 # Uploaded prescription and report documents
+│   ├── routes/
+│   │   ├── auth.py              # Doctor & Patient login / registration (No CAPTCHA)
+│   │   ├── patients.py          # Patient directory, profile & records CRUD
+│   │   ├── upload.py            # Medical document upload handler
+│   │   └── ai.py                # NVIDIA NIM AI integration (Summarize & Advice)
+│   ├── database.py              # Thread-safe JSON data access layer
+│   ├── main.py                  # FastAPI app entrypoint, CORS & static file mounts
+│   ├── requirements.txt         # Python dependencies
+│   └── run.py                   # Server runner script
+├── frontend/
+│   ├── css/
+│   │   └── style.css            # Clean, modern healthcare portal stylesheet
+│   ├── js/
+│   │   ├── api.js               # Clean fetch wrapper for REST endpoints
+│   │   ├── auth.js              # Doctor & patient authentication (No CAPTCHA)
+│   │   ├── doctor.js            # Doctor dashboard and records management
+│   │   ├── patient.js           # Patient dashboard & AI Summarize/Advice handler
+│   │   └── app.js               # Navigation, view switching, and modal controls
+│   └── index.html               # Clean, semantic HTML layout (~480 lines)
+└── README.md
 ```
 
 ---
 
-## 🚀 Quick Start (Run Locally)
+## Quick Start Guide
 
-### 1. Start the Backend Server
-
+### 1. Install Dependencies
 ```bash
-cd help-india/backend
-npm install
-npm start
+pip install -r backend/requirements.txt
 ```
 
-Server will run on: `http://localhost:5000`  
-Health check: `http://localhost:5000/api/health`
+### 2. Start the Backend Server
+```bash
+python backend/run.py
+```
+*Server starts on `http://localhost:5000`.*
 
-### 2. Open the Frontend
-
-Open `help-india/frontend/index.html` in any web browser.  
-Header will show: `🟢 Backend: Online`.
-
----
-
-## 👥 Default Demo Credentials
-
-| Role | ID | Password | Access Rights |
-| :--- | :--- | :--- | :--- |
-| **Doctor (Default)** | `DOC1001` | `doctor123` | Search all patients, add encounters, upload prescriptions, attach lab reports & doctor summaries. |
-| **New Doctors** | Self-registered | Chosen password | Full clinical authoring rights. |
-| **Patient (Default)** | `PAT1001` to `PAT1005` | `patient123` | Read-only access to own disease history, lab reports, doctor summaries, and AI assistant. |
-| **New Citizens** | Auto-assigned (`PAT1006`+) | Chosen password | Isolated read-only access to own profile and history. |
+### 3. Access the Application
+Open your browser and navigate to:
+**`http://localhost:5000`**
 
 ---
 
-## ☁️ 1-Click Cloud Deployment (All-in-One on Render)
+## Demo Accounts
 
-With **Option A (All-in-One)**, Express serves both the frontend web app and backend API from a single service with zero CORS setup:
+### Doctor Portal
+- **Doctor ID**: `DOC1001`
+- **Password**: `doctor123`
 
-1. **Push to GitHub**:
-   * Commit and push your `help-india` directory to a GitHub repository (public or private).
-
-2. **Deploy on Render (Free)**:
-   * Sign up at [Render.com](https://render.com) (free).
-   * Click **New +** → **Web Service**.
-   * Connect your GitHub repository.
-   * Configure settings:
-     * **Root Directory**: `help-india/backend` (or leave empty if your repo root is `backend`)
-     * **Runtime**: `Node`
-     * **Build Command**: `npm install`
-     * **Start Command**: `npm start`
-   * Under **Environment Variables** (Optional for live Gemini AI):
-     * `GEMINI_API_KEY`: *(Your Google AI Studio key)*
-     * `AI_PROVIDER`: `gemini`
-   * Click **Deploy Web Service**.
-
-3. **Done!**:
-   * Render gives you a single public link, for example:  
-     `https://help-india-portal.onrender.com`
-   * Visiting this URL loads the complete portal with live backend, prescription uploads, and AI assistant automatically connected!
+### Citizen / Patient Portal
+- **Patient ID**: `PAT1001` (or `PAT1002`, `PAT1003`)
+- **Password**: `patient123`

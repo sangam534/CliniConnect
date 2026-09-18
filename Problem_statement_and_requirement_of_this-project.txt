@@ -1,0 +1,25 @@
+## What is MediKiosk?
+MediKiosk is an AI-powered software platform designed for self-service hospital kiosks to solve the massive patient overcrowding in Indian hospital outpatient departments (OPDs).
+In India, a doctor often gets only 2 to 5 minutes per patient. During this tiny window, they must ask about your medical history, scan your old paper records, examine you, and write a prescription. MediKiosk fixes this "first-mile" problem by collecting your complete medical history and scanning your old documents before you even walk into the doctor's room.
+------------------------------
+## The 4 Smart Features (How It Works)
+
+* Module A: The Talking AI Engine: You speak naturally to the kiosk in your own regional language (like Hindi or Tamil), or use a simple touch screen. The AI acts like a smart nurse, asking follow-up questions tailored to your complaints. If it detects an emergency (like heart attack or stroke symptoms), it instantly alerts real hospital staff for priority triage. It also has a special mode for traditional Ayurvedic history taking.
+* Module B: The Document Scanner: You scan your messy, handwritten paper prescriptions, past hospital summaries, and lab reports. The AI reads through them, figures out your past diagnoses and medications, and builds a neat, chronological digital timeline of your medical history. It also automatically highlights dangerous out-of-range lab test numbers.
+* Module C: The Summary Maker: The system bundles your conversation and your scanned documents into a single, clean page. The very second you walk into the doctor's room, this summary is sitting on their computer screen. The doctor can read your entire history in seconds instead of minutes. The doctor is always in control and can easily edit or correct this summary.
+* Module D: Privacy & National Health Links: The platform connects directly with India’s Ayushman Bharat Digital Mission (ABDM). You log in securely using your national ABHA ID. Your data is completely safe, follows India's DPDP Act 2023 privacy laws, and wipes your temporary session data clear the second it sends your report to the doctor.
+
+------------------------------
+## The 5-Step Patient Journey
+
+[1. Identify & Consent] ➔ [2. Talk to the AI] ➔ [3. Scan Old Papers] ➔ [4. Auto-Send to Doctor] ➔ [5. Focused Check-up]
+
+
+   1. Identify: You walk up to the kiosk, scan your ABHA ID card, choose your preferred language, and give the machine permission to proceed.
+   2. Converse: You tell the AI why you are at the hospital today. The machine guides you through an easy voice or touch interview about your symptoms.
+   3. Scan: You insert your old physical test results and medical papers into the kiosk's scanner to be digitized.
+   4. Route: The kiosk automatically packages all your details, uploads them safely to the hospital computer network, and finishes your registration.
+   5. Consult: You walk into the doctor's cabin. Because the doctor already has your clean, structured medical history layout right in front of them, they can spend 100% of your appointment time actually examining you and explaining your treatment.
+
+Would you like me to help you draft a specific piece of documentation for this project, such as a technical software proposal, an investor pitch deck outline, or the technical specifications for the hardware kiosk?
+

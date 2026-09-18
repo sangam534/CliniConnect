@@ -28,20 +28,6 @@
         "prescriptionFileName": "rit.png"
       },
       {
-        "date": "2026-08-15",
-        "diseaseName": "Type 2 Diabetes Mellitus Follow-up",
-        "symptoms": "Mild polydipsia, occasional post-meal fatigue, fasting blood sugar 142 mg/dL",
-        "diagnosis": "Suboptimally controlled Type-2 Diabetes with metabolic syndrome",
-        "doctorName": "Dr. Raj Sharma",
-        "place": "New Delhi",
-        "hospitalName": "All India Institute of Medical Sciences (AIIMS)",
-        "hospitalAddress": "Ansari Nagar, New Delhi - 110029",
-        "medicines": "Metformin 500mg BD after meals, Glimepiride 1mg OD morning, Telmisartan 40mg OD",
-        "notes": "Advised low glycemic diet, 45 minutes brisk walking daily. Recheck HbA1c in 3 months.",
-        "prescriptionDocumentUrl": "",
-        "prescriptionFileName": "Rx_Diabetes_AIIMS_Aug2026.pdf"
-      },
-      {
         "date": "2026-03-10",
         "diseaseName": "Acute Seasonal Bronchitis",
         "symptoms": "Persistent productive cough, chest tightness, low grade fever (99.8°F)",
@@ -198,7 +184,7 @@
     "guardianMobile": "+91 97112 34568",
     "address": "Qtr 42, Rail Vihar, Gomti Nagar, Lucknow, Uttar Pradesh - 226010",
     "majorDiseases": "Chronic Stable Angina, Hyperlipidemia, Lumbar Spondylosis",
-    "lastUpdated": "2026-08-02",
+    "lastUpdated": "2026-09-10",
     "diseases": [
       {
         "date": "2026-08-02",
@@ -230,6 +216,19 @@
       }
     ],
     "labReports": [
+      {
+        "id": "LAB-047663",
+        "date": "2026-09-10",
+        "testName": "ef",
+        "category": "ef",
+        "diagnosticLab": "ewf",
+        "doctorPrescribed": "Dr. Raj Sharma",
+        "resultsSummary": "ef",
+        "status": "Normal",
+        "documentUrl": "/uploads/1789047663309-Untitled_document__1___4_.pdf",
+        "documentName": "Untitled document (1) (4).pdf",
+        "notes": "ewf"
+      },
       {
         "id": "LAB-1003-01",
         "date": "2026-08-01",
@@ -404,5 +403,68 @@
         "documentName": "Pulmonology_Consult_Summary.pdf"
       }
     ]
+  },
+  {
+    "id": "PAT1006",
+    "patientId": "PAT1006",
+    "password": "VermaS@21",
+    "name": "Shaurya Verma",
+    "age": 18,
+    "gender": "Male",
+    "bloodGroup": "A+",
+    "weight": "64 kg",
+    "mobile": "9250042119",
+    "guardianMobile": "9984072064",
+    "address": "lucknow",
+    "majorDiseases": "None registered",
+    "lastUpdated": "2026-09-11",
+    "diseases": [],
+    "labReports": [],
+    "doctorReports": [
+      {
+        "id": "DOC-REP-142559",
+        "date": "2026-09-11",
+        "reportType": "blood report",
+        "doctorName": "Dr. Raj Sharma",
+        "specialization": "General Physician",
+        "hospitalName": "All India Institute of Medical Sciences (AIIMS)",
+        "clinicalFindings": "have lack wbc",
+        "recommendations": "get a good nutrition rich diet",
+        "documentUrl": "/uploads/1789142559411-Untitled_document__1___4_.pdf",
+        "documentName": "Untitled document (1) (4).pdf"
+      }
+    ]
+  },
+  {
+    "id": "PAT1007",
+    "patientId": "PAT1007",
+    "password": "2610",
+    "name": "akash",
+    "age": 20,
+    "gender": "Male",
+    "bloodGroup": "A+",
+    "weight": "63 kg",
+    "mobile": "9153845632",
+    "guardianMobile": "9984072064",
+    "address": "Bihar",
+    "majorDiseases": "Asthama",
+    "lastUpdated": "2026-09-11",
+    "diseases": [],
+    "labReports": [
+      {
+        "id": "LAB-143377",
+        "date": "2026-09-11",
+        "testName": "fir",
+        "category": "genral",
+        "diagnosticLab": "ews",
+        "doctorPrescribed": "Dr. Raj Sharma",
+        "resultsSummary": "dead",
+        "status": "Normal",
+        "documentUrl": "/uploads/1789143377105-Untitled_document__1___4_.pdf",
+        "documentName": "Untitled document (1) (4).pdf",
+        "notes": ""
+      }
+    ],
+    "doctorReports": []
   }
 ]

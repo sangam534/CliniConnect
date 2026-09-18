@@ -68,22 +68,31 @@ med_india/
 
 ---
 
-## Quick Start Guide
+## Quick Start Guide (Install & Run in One Go)
 
-### 1. Install Dependencies
-```bash
-pip install -r backend/requirements.txt
-```
+### Option A: One-Click Startup (Easiest)
+* **Windows:** Double-click `start.bat` (automatically installs dependencies and starts the portal).
+* **macOS / Linux:** Run `chmod +x start.sh && ./start.sh`.
 
-### 2. Start the Backend Server
-```bash
-python backend/run.py
-```
-*Server starts on `http://localhost:5000`.*
+### Option B: Terminal Command Line (Standard)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/skyisblue629-max/Sih_prototype_1.git
+   cd Sih_prototype_1
+   ```
 
-### 3. Access the Application
-Open your browser and navigate to:
-**`http://localhost:5000`**
+2. **Install all dependencies in one go:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Start the server:**
+   ```bash
+   python run.py
+   ```
+
+4. **Access the Portal:**
+   Open your browser at: **`http://localhost:5000`**
 
 ---
 

@@ -7,6 +7,7 @@ from typing import Optional
 from datetime import date
 import random
 from database import get_doctors, save_doctors, get_patients, save_patients
+import phone_verification
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -31,6 +32,12 @@ class PatientLoginRequest(BaseModel):
     password: str
 
 
+class PatientLoginOtpRequest(BaseModel):
+    phone_number: str
+    otp: str
+    session_id: str
+
+
 class PatientRegisterRequest(BaseModel):
     name: str
     gender: str
@@ -45,6 +52,15 @@ class PatientRegisterRequest(BaseModel):
     requestedId: Optional[str] = None
     age: Optional[int] = None
     dob: Optional[str] = None
+
+
+class SendOtpRequest(BaseModel):
+    phone_number: str
+
+
+class VerifyOtpRequest(BaseModel):
+    session_id: str
+    otp: str
 
 
 @router.post("/doctor/login")
@@ -120,6 +136,7 @@ def doctor_register(req: DoctorRegisterRequest):
 
 @router.post("/patient/login")
 def patient_login(req: PatientLoginRequest):
+    # Handle traditional password login
     if not req.patientId or not req.password:
         return {"success": False, "message": "Patient ID and password are required."}
 
@@ -139,6 +156,45 @@ def patient_login(req: PatientLoginRequest):
         "success": False,
         "message": "Invalid Patient ID or password. Use demo accounts PAT1001-PAT1005 (patient123) or register."
     }
+
+
+@router.post("/patient/login-otp")
+def patient_login_otp(req: PatientLoginOtpRequest):
+    # Handle OTP-based login
+    if not req.phone_number or not req.otp or not req.session_id:
+        return {"success": False, "message": "Phone number, OTP, and session ID are required."}
+
+    try:
+        is_valid = phone_verification.verify_otp(req.session_id, req.otp)
+        if is_valid:
+            # Find patient by phone number
+            patients = get_patients()
+            phone_number_clean = req.phone_number.lstrip('+')
+            pat = next((p for p in patients if p.get("mobile", "").lstrip('+') == phone_number_clean), None)
+
+            if pat:
+                clean_pat = {k: v for k, v in pat.items() if k != "password"}
+                return {
+                    "success": True,
+                    "role": "patient",
+                    "user": clean_pat,
+                    "patient": clean_pat
+                }
+            else:
+                return {
+                    "success": False,
+                    "message": "Phone number not found in our records. Please register first."
+                }
+        else:
+            return {
+                "success": False,
+                "message": "Incorrect OTP entered."
+            }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Error during OTP verification: {str(e)}"
+        }
 
 
 @router.post("/patient/register")
@@ -207,3 +263,55 @@ def patient_register(req: PatientRegisterRequest):
         "message": "Citizen registration successful. Please note your Patient ID.",
         "patient": clean_pat
     }
+
+
+@router.post("/send-otp")
+def send_otp(req: SendOtpRequest):
+    if not req.phone_number:
+        return {"success": False, "message": "Phone number is required."}
+
+    # Remove + if present for the API
+    phone_number = req.phone_number.lstrip('+')
+
+    try:
+        session_id = phone_verification.send_otp(phone_number)
+        if session_id:
+            return {
+                "success": True,
+                "message": "OTP sent successfully",
+                "session_id": session_id
+            }
+        else:
+            return {
+                "success": False,
+                "message": "Failed to send OTP. Please check the phone number and try again."
+            }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Error sending OTP: {str(e)}"
+        }
+
+
+@router.post("/verify-otp")
+def verify_otp(req: VerifyOtpRequest):
+    if not req.session_id or not req.otp:
+        return {"success": False, "message": "Session ID and OTP are required."}
+
+    try:
+        is_valid = phone_verification.verify_otp(req.session_id, req.otp)
+        if is_valid:
+            return {
+                "success": True,
+                "message": "OTP verified successfully"
+            }
+        else:
+            return {
+                "success": False,
+                "message": "Incorrect OTP entered."
+            }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Error verifying OTP: {str(e)}"
+        }

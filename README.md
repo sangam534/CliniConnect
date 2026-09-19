@@ -24,8 +24,8 @@
    - View diagnostic lab findings and doctor consultation summaries.
    - Preview original prescription PDFs and lab report images.
 
-4. **AI Disease & Condition Assistant (NVIDIA NIM)**:
-   - Powered by NVIDIA NIM (`openai/gpt-oss-20b`) via the OpenAI-compatible SDK.
+4. **AI Disease & Condition Assistant (DeepSeek AI)**:
+   - Powered by DeepSeek AI (`deepseek-ai/deepseek-v4-flash-0731`) via the NVIDIA NIM API.
    - **Summarize Condition**: Formulates a clear, empathetic clinical summary of the patient's reported symptoms, affected systems, and patterns.
    - **Get Medical Advice**: Provides evidence-based supportive guidance, questions to ask an attending physician, and red flag warnings for emergency conditions.
    - Option to include verified medical history context from the patient's portal record.
@@ -48,7 +48,7 @@ med_india/
 │   │   ├── auth.py              # Doctor & Patient login / registration (No CAPTCHA)
 │   │   ├── patients.py          # Patient directory, profile & records CRUD
 │   │   ├── upload.py            # Medical document upload handler
-│   │   └── ai.py                # NVIDIA NIM AI integration (Summarize & Advice)
+│   │   └── ai.py                # DeepSeek AI integration (Summarize & Advice)
 │   ├── database.py              # Thread-safe JSON data access layer
 │   ├── main.py                  # FastAPI app entrypoint, CORS & static file mounts
 │   ├── requirements.txt         # Python dependencies

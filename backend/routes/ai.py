@@ -1,5 +1,5 @@
 """
-AI Disease & Condition Assistant using NVIDIA OpenAI NIM Client
+AI Disease & Condition Assistant using NVIDIA DeepSeek API Client
 Supports:
 1. Summarize: Concise clinical summary of the patient's reported disease/conditions.
 2. Advice: Supportive care, questions for the doctor, and red flag warnings.
@@ -7,18 +7,30 @@ Supports:
 from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import Optional
+import os
+try:
+    from dotenv import load_dotenv
+    env_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+    if os.path.exists(env_file):
+        load_dotenv(env_file)
+except ImportError:
+    pass
+
 from openai import OpenAI
 from database import get_patients
 
 router = APIRouter(prefix="/api/ai", tags=["ai"])
 
-# Initialize client exactly as requested
+# Base URL, API Key, and Model configured with env fallbacks
+BASE_URL = os.getenv("OPENAI_BASE_URL", "https://integrate.api.nvidia.com/v1")
+API_KEY = os.getenv("OPENAI_API_KEY", "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")
+MODEL_NAME = os.getenv("OPENAI_MODEL", "deepseek-ai/deepseek-v4-flash-0731")
+
 client = OpenAI(
-    base_url="https://integrate.api.nvidia.com/v1",
-    api_key="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",
-    timeout=35.0
+    base_url=BASE_URL,
+    api_key=API_KEY,
+    timeout=180.0
 )
-MODEL_NAME = "openai/gpt-oss-20b"
 
 
 class ConditionAnalysisRequest(BaseModel):
@@ -48,7 +60,12 @@ def build_patient_history_context(patient_id: Optional[str]) -> str:
     return f"Patient Major Diagnoses: {major}. Recorded Medical History: {recent}."
 
 
-def call_nvidia_ai(prompt: str, system_message: str) -> str:
+def call_nvidia_ai(prompt: str, system_message: str):
+    """
+    Calls NVIDIA NIM DeepSeek API with streaming chunk aggregation
+    as specified in deepseek_api reference file.
+    Captures both thinking/reasoning and final clinical content.
+    """
     try:
         completion = client.chat.completions.create(
             model=MODEL_NAME,
@@ -56,25 +73,45 @@ def call_nvidia_ai(prompt: str, system_message: str) -> str:
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7,
-            max_tokens=1024,
+            temperature=1,
+            top_p=0.95,
+            max_tokens=16384,
+            extra_body={"chat_template_kwargs": {"thinking": True, "reasoning_effort": "high"}},
             stream=True
         )
-        content_parts = []
+
+        reasoning_chunks = []
+        content_chunks = []
+
         for chunk in completion:
             if not getattr(chunk, "choices", None):
                 continue
-            delta = chunk.choices[0].delta
-            if delta and getattr(delta, "content", None):
-                content_parts.append(delta.content)
-        
-        result_text = "".join(content_parts).strip()
-        if result_text:
-            return result_text
-        return "Analysis completed. Please consult with your healthcare provider."
+            delta = chunk.choices[0].delta if chunk.choices else None
+            if not delta:
+                continue
+
+            reasoning = getattr(delta, "reasoning", None) or getattr(delta, "reasoning_content", None)
+            if reasoning:
+                reasoning_chunks.append(reasoning)
+
+            if delta.content is not None:
+                content_chunks.append(delta.content)
+
+        reasoning_text = "".join(reasoning_chunks).strip()
+        content_text = "".join(content_chunks).strip()
+
+        final_text = content_text if content_text else reasoning_text
+        if not final_text:
+            final_text = "Analysis completed. Please consult with your healthcare provider."
+
+        return final_text, reasoning_text
     except Exception as e:
-        print(f"Error calling NVIDIA AI: {e}")
-        return f"Clinical Summary / Guidance: Based on reported input ('{prompt[:100]}...'), medical evaluation by a licensed physician is recommended for proper diagnosis."
+        print(f"Error calling DeepSeek AI: {e}")
+        fallback_msg = (
+            f"Clinical Summary / Guidance: Based on reported input ('{prompt[:100]}...'), "
+            f"medical evaluation by a licensed physician is recommended for proper diagnosis."
+        )
+        return fallback_msg, ""
 
 
 @router.post("/condition-assistant")
@@ -120,13 +157,14 @@ def condition_assistant(req: ConditionAnalysisRequest):
             user_prompt += f"Verified Patient Record: {history_context}\n"
         user_prompt += "Please provide clinical guidance, self-care measures, and warning signs."
 
-    result_text = call_nvidia_ai(user_prompt, system_prompt)
+    result_text, reasoning_text = call_nvidia_ai(user_prompt, system_prompt)
 
     return {
         "success": True,
         "action": action,
         "model": MODEL_NAME,
-        "result": result_text
+        "result": result_text,
+        "reasoning": reasoning_text
     }
 
 

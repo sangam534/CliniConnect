@@ -1,5 +1,5 @@
 /**
- * HELP INDIA Portal - API Client
+ * CliniConnect Portal - API Client
  * Clean, minimalistic fetch helper for backend REST calls
  */
 

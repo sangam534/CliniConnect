@@ -1,5 +1,5 @@
 /**
- * HELP INDIA Portal - Authentication Module
+ * CliniConnect Portal - Authentication Module
  * Clean, lightweight doctor and patient authentication (NO CAPTCHA)
  */
 
@@ -19,6 +19,10 @@ async function handleDoctorLogin(e) {
         if (json.success) {
             currentUser = json.doctor;
             currentRole = "doctor";
+            try {
+                sessionStorage.setItem("cliniconnect_user", JSON.stringify(currentUser));
+                sessionStorage.setItem("cliniconnect_role", "doctor");
+            } catch (err) {}
             openDoctorPortal();
         } else {
             showAlert("docLoginAlert", json.message || "Invalid doctor credentials.");
@@ -74,6 +78,10 @@ async function handlePatientLogin(e) {
         if (json.success) {
             currentUser = json.patient;
             currentRole = "patient";
+            try {
+                sessionStorage.setItem("cliniconnect_user", JSON.stringify(currentUser));
+                sessionStorage.setItem("cliniconnect_role", "patient");
+            } catch (err) {}
             openPatientPortal();
         } else {
             showAlert("patientLoginAlert", json.message || "Invalid patient ID or password.");
@@ -129,6 +137,14 @@ async function handlePatientRegister(e) {
 function handleLogout() {
     currentUser = null;
     currentRole = null;
+    window.otpSessionId = null;
+    if (typeof toggleVoiceChatWidget === "function") {
+        toggleVoiceChatWidget(false);
+    }
+    try {
+        sessionStorage.removeItem("cliniconnect_user");
+        sessionStorage.removeItem("cliniconnect_role");
+    } catch (err) {}
     showRoleSelection();
 }
 
@@ -138,4 +154,71 @@ function showAlert(elementId, message, type = "error") {
     el.textContent = message;
     el.className = `form-alert ${type}`;
     el.style.display = "block";
+}
+
+// Send OTP
+async function handleSendOtp() {
+    const phoneNumber = document.getElementById("patientPhoneInput").value.trim();
+    const alertEl = document.getElementById("patientLoginAlert");
+    alertEl.style.display = "none";
+
+    if (!phoneNumber) {
+        showAlert("patientLoginAlert", "Please enter your mobile number.");
+        return;
+    }
+
+    if (!phoneNumber.startsWith("+")) {
+        showAlert("patientLoginAlert", "Please enter mobile number with country code (e.g., +91)");
+        return;
+    }
+
+    try {
+        const json = await api.post("/api/auth/send-otp", { phone_number: phoneNumber });
+        if (json.success) {
+            window.otpSessionId = json.session_id;
+            document.getElementById("otpSection").style.display = "block";
+            document.getElementById("sendOtpBtn").style.display = "none";
+            document.getElementById("verifyOtpBtn").style.display = "block";
+            showAlert("patientLoginAlert", "OTP sent successfully. Please check your mobile.", "success");
+        } else {
+            showAlert("patientLoginAlert", json.message || "Failed to send OTP. Please try again.");
+        }
+    } catch (err) {
+        showAlert("patientLoginAlert", "Cannot reach backend server. Please ensure backend is running.");
+    }
+}
+
+// Handle OTP Login
+async function handlePatientOtpLogin(e) {
+    e.preventDefault();
+    const phoneNumber = document.getElementById("patientPhoneInput").value.trim();
+    const otp = document.getElementById("patientOtpInput").value.trim();
+    const alertEl = document.getElementById("patientLoginAlert");
+    alertEl.style.display = "none";
+
+    if (!phoneNumber || !otp || !window.otpSessionId) {
+        showAlert("patientLoginAlert", "Mobile number, OTP, and session are required.");
+        return;
+    }
+
+    try {
+        const json = await api.post("/api/auth/patient/login-otp", {
+            phone_number: phoneNumber,
+            otp: otp,
+            session_id: window.otpSessionId
+        });
+        if (json.success) {
+            currentUser = json.patient;
+            currentRole = "patient";
+            try {
+                sessionStorage.setItem("cliniconnect_user", JSON.stringify(currentUser));
+                sessionStorage.setItem("cliniconnect_role", "patient");
+            } catch (err) {}
+            openPatientPortal();
+        } else {
+            showAlert("patientLoginAlert", json.message || "Invalid OTP or phone number.");
+        }
+    } catch (err) {
+        showAlert("patientLoginAlert", "Cannot reach backend server. Please ensure backend is running.");
+    }
 }

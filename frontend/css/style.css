@@ -1,5 +1,5 @@
 /* ==========================================================================
-   HELP INDIA - National Medical Disease History Portal
+   CliniConnect - Unified Medical Disease History Portal
    Clean, Minimalistic Healthcare Portal Stylesheet
    ========================================================================== */
 
@@ -107,6 +107,34 @@ body {
     justify-content: center;
     font-size: 22px;
     box-shadow: var(--shadow-sm);
+}
+
+.brand-logo-img {
+    width: 46px;
+    height: 46px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    padding: 3px;
+    object-fit: contain;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.brand-section:hover .brand-logo-img {
+    transform: scale(1.05);
+}
+
+.hero-logo-banner {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 16px auto;
+    display: block;
+    background: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 43, 73, 0.08);
 }
 
 .brand-title {
@@ -572,8 +600,380 @@ body {
     border-top: 3px solid var(--india-green);
 }
 .site-footer p { margin-bottom: 4px; }
+.footer-logo-wrap {
+    margin-bottom: 12px;
+}
+.footer-logo-img {
+    height: 48px;
+    width: auto;
+    background: #FFFFFF;
+    padding: 6px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
 @media (max-width: 768px) {
     .profile-banner { grid-template-columns: 1fr; }
     .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Voice Assistant Floating Action Button & Voice Chat Widget
+   ========================================================================== */
+
+.voice-assistant-container {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: var(--font-family);
+    pointer-events: auto;
+}
+
+/* Floating Action Button */
+.voice-chat-fab-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #0A58CA 0%, #002B49 100%);
+    color: #FFFFFF;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    box-shadow: 0 6px 20px rgba(0, 43, 73, 0.35);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    user-select: none;
+}
+
+.voice-chat-fab-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 28px rgba(10, 88, 202, 0.45);
+    background: linear-gradient(135deg, #0d6efd 0%, #001f36 100%);
+}
+
+.voice-chat-fab-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.fab-inner-icon {
+    font-size: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.fab-label {
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* Glowing pulse ring around FAB */
+.fab-pulse-ring {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50px;
+    border: 2px solid #10B981;
+    animation: fabGlowPulse 2.2s infinite;
+    pointer-events: none;
+}
+
+@keyframes fabGlowPulse {
+    0% {
+        transform: scale(0.96);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.08);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(1.18);
+        opacity: 0;
+    }
+}
+
+/* Prompt Bubble */
+.voice-fab-prompt-bubble {
+    position: relative;
+    margin-bottom: 12px;
+    background: #0F172A;
+    color: #F8FAFC;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    animation: bubbleBounce 2.5s infinite ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 290px;
+    transition: opacity 0.2s ease;
+}
+
+.voice-fab-prompt-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 26px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #0F172A;
+}
+
+.voice-bubble-close {
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 2px;
+    margin-left: 6px;
+}
+.voice-bubble-close:hover {
+    color: #FFFFFF;
+}
+
+@keyframes bubbleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* Voice Chat Widget Popup Card */
+.voice-chat-widget-card {
+    position: relative;
+    width: 350px;
+    max-width: calc(100vw - 40px);
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid #BFDBFE;
+    box-shadow: 0 16px 36px rgba(0, 43, 73, 0.22);
+    margin-bottom: 14px;
+    overflow: hidden;
+    animation: widgetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: bottom right;
+}
+
+@keyframes widgetSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Widget Header */
+.voice-widget-header {
+    background: linear-gradient(135deg, var(--dark-navy) 0%, var(--primary-navy) 100%);
+    color: #FFFFFF;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--india-saffron);
+}
+
+.voice-widget-title-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.voice-widget-icon-wrap {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.voice-widget-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.2px;
+}
+
+.voice-widget-status {
+    font-size: 0.72rem;
+    color: #94A3B8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-indicator-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    display: inline-block;
+    box-shadow: 0 0 6px #10B981;
+}
+
+.voice-widget-close-btn {
+    background: transparent;
+    border: none;
+    color: #E2E8F0;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.voice-widget-close-btn:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Widget Body */
+.voice-widget-body {
+    padding: 18px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Animated Sound Wave Visualizer */
+.voice-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 36px;
+    margin: 4px 0 14px 0;
+    padding: 0 10px;
+}
+
+.v-bar {
+    width: 4px;
+    background: linear-gradient(180deg, var(--accent-blue) 0%, var(--india-green) 100%);
+    border-radius: 3px;
+    animation: soundWave 1.4s ease-in-out infinite;
+}
+
+.v-bar:nth-child(1) { height: 10px; animation-delay: 0.0s; }
+.v-bar:nth-child(2) { height: 18px; animation-delay: 0.2s; }
+.v-bar:nth-child(3) { height: 28px; animation-delay: 0.4s; }
+.v-bar:nth-child(4) { height: 34px; animation-delay: 0.1s; }
+.v-bar:nth-child(5) { height: 26px; animation-delay: 0.3s; }
+.v-bar:nth-child(6) { height: 16px; animation-delay: 0.5s; }
+.v-bar:nth-child(7) { height: 12px; animation-delay: 0.15s; }
+
+@keyframes soundWave {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1.0); }
+}
+
+.voice-widget-message strong {
+    display: block;
+    font-size: 0.94rem;
+    color: var(--primary-navy);
+    margin-bottom: 6px;
+}
+
+.voice-widget-message p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin-bottom: 16px;
+}
+
+/* Click to Talk CTA Button */
+.voice-talk-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 13px 20px;
+    background: linear-gradient(135deg, #128807 0%, #0F6B05 100%);
+    color: #FFFFFF !important;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(18, 136, 7, 0.35);
+    transition: all 0.2s ease;
+    border: 1px solid #16A34A;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.voice-talk-btn:hover {
+    background: linear-gradient(135deg, #0F6B05 0%, #094703 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(18, 136, 7, 0.45);
+    color: #FFFFFF !important;
+}
+
+.voice-talk-btn:active {
+    transform: translateY(0);
+}
+
+.voice-talk-btn-icon {
+    font-size: 1.25rem;
+}
+
+.voice-talk-btn-text {
+    letter-spacing: 0.3px;
+}
+
+.voice-talk-btn-arrow {
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.voice-talk-btn:hover .voice-talk-btn-arrow {
+    transform: translateX(4px);
+}
+
+.voice-widget-footer-note {
+    margin-top: 12px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.2px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 600px) {
+    .voice-assistant-container {
+        bottom: 16px;
+        right: 16px;
+    }
+    .voice-chat-widget-card {
+        width: calc(100vw - 32px);
+    }
+    .voice-chat-fab-btn {
+        padding: 10px 18px;
+    }
+    .fab-label {
+        font-size: 0.85rem;
+    }
 }

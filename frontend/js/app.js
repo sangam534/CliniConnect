@@ -1,7 +1,9 @@
 /**
- * HELP INDIA Portal - Main Application Orchestrator
+ * CliniConnect Portal - Main Application Orchestrator
  * View switching, modals, tabs, document previews, and initialization
  */
+
+let otpSessionId = null;
 
 const ALL_VIEWS = [
     "roleSelectionSection",
@@ -35,6 +37,38 @@ function showPatientLogin() {
     document.getElementById("patientLoginAlert").style.display = "none";
     document.getElementById("patientIdInput").value = "PAT1001";
     document.getElementById("patientPasswordInput").value = "patient123";
+
+    // Reset OTP form state
+    document.getElementById("patientPhoneInput").value = "";
+    document.getElementById("patientOtpInput").value = "";
+    document.getElementById("otpSection").style.display = "none";
+    document.getElementById("sendOtpBtn").style.display = "block";
+    document.getElementById("verifyOtpBtn").style.display = "none";
+    window.otpSessionId = null;
+
+    // Show password login by default
+    showPasswordLogin();
+}
+
+// Toggle between password and OTP login
+function showPasswordLogin() {
+    document.getElementById("passwordLoginForm").style.display = "block";
+    document.getElementById("otpLoginForm").style.display = "none";
+    document.getElementById("passwordLoginBtn").style.background = "var(--india-green)";
+    document.getElementById("passwordLoginBtn").style.color = "#FFF";
+    document.getElementById("otpLoginBtn").style.background = "transparent";
+    document.getElementById("otpLoginBtn").style.color = "var(--primary-navy)";
+    document.getElementById("patientLoginAlert").style.display = "none";
+}
+
+function showOtpLogin() {
+    document.getElementById("passwordLoginForm").style.display = "none";
+    document.getElementById("otpLoginForm").style.display = "block";
+    document.getElementById("otpLoginBtn").style.background = "var(--india-green)";
+    document.getElementById("otpLoginBtn").style.color = "#FFF";
+    document.getElementById("passwordLoginBtn").style.background = "transparent";
+    document.getElementById("passwordLoginBtn").style.color = "var(--primary-navy)";
+    document.getElementById("patientLoginAlert").style.display = "none";
 }
 
 // Tab Switching
@@ -86,7 +120,7 @@ function viewDocument(docUrl, docName) {
                 <div style="font-size: 48px; margin-bottom: 12px;">📑</div>
                 <h4 style="margin-bottom: 8px; color: var(--primary-navy);">${escapeHtml(docName)}</h4>
                 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-                    Certified PDF document stored securely on Help India server.
+                    Certified PDF document stored securely on CliniConnect server.
                 </p>
                 <a href="${fullUrl}" target="_blank" class="btn btn-primary">
                     Open PDF in New Window
@@ -116,7 +150,30 @@ function escapeHtml(str) {
 
 // App Initialization
 window.addEventListener("DOMContentLoaded", () => {
-    showRoleSelection();
+    // Check saved session in sessionStorage
+    let sessionRestored = false;
+    try {
+        const savedRole = sessionStorage.getItem("cliniconnect_role");
+        const savedUserStr = sessionStorage.getItem("cliniconnect_user");
+
+        if (savedRole === "patient" && savedUserStr) {
+            currentUser = JSON.parse(savedUserStr);
+            currentRole = "patient";
+            openPatientPortal();
+            sessionRestored = true;
+        } else if (savedRole === "doctor" && savedUserStr) {
+            currentUser = JSON.parse(savedUserStr);
+            currentRole = "doctor";
+            openDoctorPortal();
+            sessionRestored = true;
+        }
+    } catch (e) {
+        sessionStorage.clear();
+    }
+
+    if (!sessionRestored) {
+        showRoleSelection();
+    }
 
     // Close modals when clicking backdrop
     window.addEventListener("click", (e) => {

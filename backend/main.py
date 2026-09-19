@@ -4,6 +4,14 @@ FastAPI Backend Application
 """
 import os
 import time
+try:
+    from dotenv import load_dotenv
+    env_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    if os.path.exists(env_file):
+        load_dotenv(env_file)
+except ImportError:
+    pass
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -12,7 +20,7 @@ from fastapi.responses import FileResponse
 from routes.auth import router as auth_router
 from routes.patients import router as patients_router
 from routes.upload import router as upload_router
-from routes.ai import router as ai_router
+from routes.ai import router as ai_router, MODEL_NAME
 from database import get_patients, get_doctors
 
 app = FastAPI(
@@ -60,7 +68,7 @@ def health_check():
         "registeredDoctorsCount": len(doctors),
         "aiConfig": {
             "provider": "NVIDIA NIM",
-            "model": "openai/gpt-oss-20b",
+            "model": MODEL_NAME,
             "capabilities": ["summarize", "advice"]
         },
         "disclaimer": "DEMO PROJECT — MOCK DATA — NOT A REAL GOVERNMENT SERVICE"
@@ -92,3 +100,25 @@ if os.path.exists(FRONTEND_DIR):
         if os.path.exists(target):
             return FileResponse(target)
         return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+    @app.get("/images/{file_path:path}")
+    def serve_images(file_path: str):
+        target = os.path.join(FRONTEND_DIR, "images", file_path)
+        if os.path.exists(target):
+            return FileResponse(target)
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+    @app.get("/logo.png")
+    def serve_root_logo():
+        target = os.path.join(FRONTEND_DIR, "images", "logo.png")
+        if os.path.exists(target):
+            return FileResponse(target)
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+    @app.get("/logo-icon.png")
+    def serve_root_logo_icon():
+        target = os.path.join(FRONTEND_DIR, "images", "logo-icon.png")
+        if os.path.exists(target):
+            return FileResponse(target)
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HELP INDIA – National Medical Disease History Portal</title>
+    <title>CliniConnect – National Medical Disease History Portal</title>
+    <link rel="icon" type="image/png" href="images/logo-icon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,17 +13,17 @@
     <div class="tricolor-stripe"></div>
     <div class="official-demo-banner">
         <span class="demo-badge-pill"></span>
-        HELP INDIA – National Medical Disease History & Clinical Encounters Portal
+        CliniConnect – National Medical Disease History & Clinical Encounters Portal
     </div>
 
     <!-- Main Navigation Header -->
     <header class="site-header">
         <div class="header-container">
             <div class="brand-section" onclick="showRoleSelection()">
-                <div class="emblem-badge">🇮🇳</div>
+                <img src="images/logo-icon.png" alt="CliniConnect Logo" class="brand-logo-img">
                 <div>
-                    <div class="brand-title">HELP INDIA</div>
-                    <div class="brand-subtitle">National Medical Disease History Portal</div>
+                    <div class="brand-title">CliniConnect</div>
+                    <div class="brand-subtitle">People • Health • Together</div>
                 </div>
             </div>
             <div class="header-actions">
@@ -39,6 +40,7 @@
         <!-- VIEW 1: ROLE SELECTION -->
         <section id="roleSelectionSection">
             <div class="landing-hero">
+                <img src="images/logo.png" alt="CliniConnect - People Health Together" class="hero-logo-banner">
                 <h1>National Healthcare Records System</h1>
                 <p>A unified digital health repository connecting citizens with accredited healthcare practitioners and AI clinical guidance.</p>
             </div>
@@ -114,7 +116,14 @@
 
                         <div id="patientLoginAlert" class="form-alert"></div>
 
-                        <form onsubmit="handlePatientLogin(event)">
+                        <!-- Login Type Toggle -->
+                        <div style="margin-bottom: 16px;">
+                            <button type="button" id="passwordLoginBtn" class="btn btn-sm" style="background:var(--india-green); color:#FFF; margin-right:8px;" onclick="showPasswordLogin()">Password Login</button>
+                            <button type="button" id="otpLoginBtn" class="btn btn-sm btn-outline-navy" onclick="showOtpLogin()">OTP Login</button>
+                        </div>
+
+                        <!-- Password Login Form -->
+                        <form id="passwordLoginForm" onsubmit="handlePatientLogin(event)">
                             <div class="form-group">
                                 <label class="form-label" for="patientIdInput">Citizen / Patient ID *</label>
                                 <input type="text" id="patientIdInput" class="form-control" placeholder="e.g. PAT1001" required>
@@ -125,6 +134,29 @@
                             </div>
                             <button type="submit" class="btn btn-green" style="width:100%; margin-top:8px;">
                                 Citizen Portal Sign In
+                            </button>
+                        </form>
+
+                        <!-- OTP Login Form -->
+                        <form id="otpLoginForm" style="display:none;" onsubmit="handlePatientOtpLogin(event)">
+                            <div class="form-group">
+                                <label class="form-label" for="patientPhoneInput">Mobile Number *</label>
+                                <input type="tel" id="patientPhoneInput" class="form-control" placeholder="e.g. +91 9876543210" required>
+                            </div>
+                            <div id="otpSection" style="display:none;">
+                                <div class="form-group">
+                                    <label class="form-label" for="patientOtpInput">OTP *</label>
+                                    <input type="text" id="patientOtpInput" class="form-control" placeholder="Enter OTP received" maxlength="6" required>
+                                </div>
+                                <div class="form-group">
+                                    <small style="color:var(--text-muted);">OTP sent to your mobile. Valid for 10 minutes.</small>
+                                </div>
+                            </div>
+                            <button type="button" id="sendOtpBtn" class="btn btn-green" style="width:100%; margin-top:8px;" onclick="handleSendOtp()">
+                                Send OTP
+                            </button>
+                            <button type="submit" id="verifyOtpBtn" class="btn btn-green" style="width:100%; margin-top:8px; display:none;">
+                                Verify OTP & Login
                             </button>
                         </form>
                     </div>
@@ -455,7 +487,7 @@
                     <div class="ai-title">
                         🤖 AI Disease & Health Condition Assistant
                     </div>
-                    <span class="ai-badge">NVIDIA NIM AI</span>
+                    <span class="ai-badge">DeepSeek AI</span>
                 </div>
                 <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">
                     Submit your current diseases, symptoms, or health conditions to receive structured clinical summaries or supportive medical advice.
@@ -488,7 +520,7 @@
                 <!-- Loading State -->
                 <div id="aiLoadingBox" class="ai-loading-state">
                     <div class="spinner"></div>
-                    <span id="aiLoadingText">Processing with NVIDIA AI...</span>
+                    <span id="aiLoadingText">Processing with DeepSeek AI...</span>
                 </div>
 
                 <!-- Result Card -->
@@ -498,13 +530,95 @@
                             <strong id="aiResultTitle" style="color:var(--primary-navy);">AI Clinical Analysis</strong>
                             <span id="aiResultBadge" class="status-badge normal">SUMMARY</span>
                         </div>
-                        <small style="color:var(--text-muted);">NVIDIA NIM (openai/gpt-oss-20b)</small>
+                        <small style="color:var(--text-muted);">DeepSeek (deepseek-v4-flash-0731)</small>
+                    </div>
+                    <!-- DeepSeek Reasoning Thought Process Container -->
+                    <div id="aiReasoningContainer" style="display:none; margin-bottom:14px;">
+                        <details style="background:#F8FAFC; border:1px solid var(--border-subtle); border-radius:6px; padding:8px 12px; font-size:0.82rem;">
+                            <summary style="cursor:pointer; font-weight:600; color:var(--accent-blue); outline:none;">
+                                🧠 DeepSeek Clinical Reasoning Process (Thinking)
+                            </summary>
+                            <div id="aiReasoningContent" style="white-space:pre-wrap; margin-top:8px; color:var(--text-muted); font-size:0.80rem; max-height:220px; overflow-y:auto; line-height:1.5;"></div>
+                        </details>
                     </div>
                     <div id="aiResultContent" class="ai-result-content"></div>
                     <div style="margin-top:14px; padding-top:8px; border-top:1px dashed var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
                         <strong>Disclaimer:</strong> This prototype AI guidance is generated for demonstration and educational purposes. Always consult a certified physician for medical diagnosis and emergency treatment.
                     </div>
                 </div>
+            </div>
+
+            <!-- FLOATING ACTION BUTTON & VOICE CHAT WIDGET -->
+            <div id="voiceAssistantContainer" class="voice-assistant-container">
+                
+                <!-- Voice Chat Widget Popup Card -->
+                <div id="voiceChatWidgetCard" class="voice-chat-widget-card" style="display:none;">
+                    <!-- Header -->
+                    <div class="voice-widget-header">
+                        <div class="voice-widget-title-box">
+                            <div class="voice-widget-icon-wrap">🎙️</div>
+                            <div>
+                                <div class="voice-widget-title">AI Medical Voice Assistant</div>
+                                <div class="voice-widget-status">
+                                    <span class="status-indicator-dot"></span> Online • Click to Talk Ready
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="voice-widget-close-btn" onclick="toggleVoiceChatWidget(false)" title="Close Voice Assistant" aria-label="Close">
+                            &times;
+                        </button>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="voice-widget-body">
+                        <!-- Animated Sound Wave Visualizer -->
+                        <div class="voice-visualizer" aria-hidden="true">
+                            <span class="v-bar"></span>
+                            <span class="v-bar"></span>
+                            <span class="v-bar"></span>
+                            <span class="v-bar"></span>
+                            <span class="v-bar"></span>
+                            <span class="v-bar"></span>
+                            <span class="v-bar"></span>
+                        </div>
+
+                        <div class="voice-widget-message">
+                            <strong>Speak directly with our AI Voice Assistant</strong>
+                            <p>Get instant hands-free guidance for symptoms, disease queries, and medical instructions using natural voice conversation.</p>
+                        </div>
+
+                        <!-- Click to Talk Button -->
+                        <a id="clickToTalkBtn" 
+                           href="https://medical-voiceassistant7934.ai.studio/" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="voice-talk-btn">
+                            <span class="voice-talk-btn-icon">🎙️</span>
+                            <span class="voice-talk-btn-text">Click to Talk</span>
+                            <span class="voice-talk-btn-arrow">➔</span>
+                        </a>
+
+                        <div class="voice-widget-footer-note">
+                            🔒 Powered by Google AI Studio • Instant Voice Redirection
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Prompt Bubble (shown on initial dashboard load) -->
+                <div id="voiceFabPromptBubble" class="voice-fab-prompt-bubble" onclick="toggleVoiceChatWidget(true)">
+                    <span>🎙️ <strong>Need help?</strong> Click to Talk with Voice AI</span>
+                    <button type="button" class="voice-bubble-close" onclick="dismissVoiceBubble(event)" aria-label="Dismiss">&times;</button>
+                </div>
+
+                <!-- Floating Action Button (FAB) -->
+                <button type="button" id="voiceChatFabBtn" class="voice-chat-fab-btn" onclick="toggleVoiceChatWidget()" title="Open Voice Chat Assistant" aria-label="Open Voice Chat Assistant">
+                    <div class="fab-pulse-ring"></div>
+                    <div class="fab-inner-icon">
+                        <span id="fabIconMic">🎙️</span>
+                        <span id="fabIconClose" style="display:none;">&times;</span>
+                    </div>
+                    <span class="fab-label">Voice Assistant</span>
+                </button>
             </div>
 
         </section>
@@ -843,8 +957,11 @@
 
     <!-- Footer -->
     <footer class="site-footer">
-        <p><strong>HELP INDIA</strong> – National Medical Disease History Portal Prototype</p>
-        <p>Developed with Python FastAPI & Minimalistic Modular Architecture</p>
+        <div class="footer-logo-wrap">
+            <img src="images/logo.png" alt="CliniConnect Logo" class="footer-logo-img">
+        </div>
+        <p><strong>CliniConnect</strong> – National Medical Disease History Portal Prototype</p>
+        <p>People • Health • Together | Developed with Python FastAPI & Minimalistic Modular Architecture</p>
     </footer>
 
     <!-- Modular Frontend Scripts -->

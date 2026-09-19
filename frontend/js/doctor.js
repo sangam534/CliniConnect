@@ -1,5 +1,5 @@
 /**
- * HELP INDIA Portal - Doctor Dashboard Module
+ * CliniConnect Portal - Doctor Dashboard Module
  * Accredited physician search, patient history inspection, and records management
  */
 

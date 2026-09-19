@@ -1,4 +1,4 @@
-# HELP INDIA – National Medical Disease History Portal
+# CLINI CONNECT – National Medical Disease History Portal
 
 > **National Medical Disease History & Clinical Encounters Portal Prototype**  
 > Built with **Python FastAPI**, clean modular architecture, and **NVIDIA NIM AI** integration.
